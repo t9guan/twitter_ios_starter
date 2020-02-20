@@ -19,6 +19,11 @@ class HomeTableViewController: UITableViewController {
         
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadTweet()
+    }
+    
     func loadTweet(){
        
        let myURL = "https://api.twitter.com/1.1/statuses/home_timeline.json"
@@ -60,6 +65,9 @@ class HomeTableViewController: UITableViewController {
             if let imageData = data{
                 cell.profileImageView.image = UIImage(data: imageData)
             }
+            cell.setFavorite(tweetArray[indexPath.row]["favorited"] as! Bool)
+            cell.tweetId = tweetArray[indexPath.row]["id"] as! Int
+            cell.setRetweeted(tweetArray[indexPath.row]["retweeted"] as! Bool)
         }
         return cell
     }
